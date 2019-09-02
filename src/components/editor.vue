@@ -1,7 +1,6 @@
 <template>
   <div class="tinymce-editor">
-    <editor v-model="myValue" :init="init" :disabled="disabled" @onClick="upchange">
-    </editor>
+    <editor v-model="myValue" :init="init" :disabled="disabled" @onClick="upchange"></editor>
     <svg id="svg"></svg>
   </div>
 </template>
