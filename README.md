@@ -1,4 +1,4 @@
-# hello-world
+# tinymce
 
 ## Project setup
 ```
