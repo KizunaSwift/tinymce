@@ -1,7 +1,6 @@
 <template>
   <div class="tinymce-editor">
-    <editor v-model="myValue" :init="init" :disabled="disabled" @onClick="upchange"></editor>
-    <svg id="svg"></svg>
+    <editor ref="editor" v-model="myValue" :init="init" :disabled="disabled" @onClick="change" @onBlur="blur"></editor>
   </div>
 </template>
 <script>
@@ -53,9 +52,10 @@ export default {
     return {
       //初始化配置
       init: {
-        language_url: 'tinymce/zh_CN.js',
         language: 'zh_CN',
+        language_url: 'tinymce/zh_CN.js',
         skin_url: 'tinymce/skins/ui/oxide',
+        emoticons_database_url: 'tinymce/emojis.js',
         height: 350,
         plugins: this.plugins,
         toolbar: this.toolbar,
@@ -69,7 +69,6 @@ export default {
         fontsize_formats: '11px 12px 14px 16px 18px 24px 36px 48px',
         font_formats: '宋体; 微软雅黑; 楷体; 黑体; 隶书; Arial; Courier New; Georgia; Serif; Times New Roman',
         fullpage_default_font_family: 'Arial',
-        emoticons_database_url: 'tinymce/emojis.js',
         //此处为图片上传处理函数，这个直接用了base64的图片形式上传图片，
         //如需ajax上传可参考https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_handler
         images_upload_handler: (blobInfo, success, failure) => {
@@ -98,12 +97,12 @@ export default {
       myValue: this.value
     }
   },
-  mounted() {
-    tinymce.init({});
-  },
   methods: {
-    upchange(e) {
+    change(e) {
       this.$emit('change', e, tinymce);
+    },
+    blur(e) {
+      this.$emit('blur', e, tinymce);
     },
     clear() {
       this.myValue = '';

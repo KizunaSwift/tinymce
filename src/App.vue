@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <div>
-      {{ msg }}
-      <tinymce-editor ref="editor" v-model="msg" :disabled="disabled" @change="change"></tinymce-editor>
-      <button @click="clear">清空内容</button>
-      <button @click="disabled=true">禁用</button>
+      <p>{{ msg }}</p>
+      <tinymce-editor ref="editor" v-model="msg" :disabled="disabled" @change="handleChange" @blur="handleBlur"></tinymce-editor>
+      <button type="button" @click="clear" style="margin: 10px;">清空内容</button>
+      <button type="button" @click="disabled=true">禁用</button>
     </div>
     <ul id="waterfall"></ul>
   </div>
@@ -26,33 +26,20 @@ export default {
   },
   mounted() {
     let list = [
-      { url: 'http://cued.xunlei.com/demos/publ/img/P_101.jpg' },
-      { url: 'http://cued.xunlei.com/demos/publ/img/P_102.jpg' },
-      { url: 'http://cued.xunlei.com/demos/publ/img/P_103.jpg' },
-      { url: 'http://cued.xunlei.com/demos/publ/img/P_105.jpg' },
-      { url: 'http://cued.xunlei.com/demos/publ/img/P_106.jpg' },
-      { url: 'http://cued.xunlei.com/demos/publ/img/P_107.jpg' },
-      { url: 'http://cued.xunlei.com/demos/publ/img/P_108.jpg' },
-      { url: 'http://cued.xunlei.com/demos/publ/img/P_109.jpg' },
-      { url: 'http://cued.xunlei.com/demos/publ/img/P_111.jpg' },
-      { url: 'http://cued.xunlei.com/demos/publ/img/P_112.jpg' },
-      { url: 'http://cued.xunlei.com/demos/publ/img/P_113.jpg' },
-      { url: 'http://cued.xunlei.com/demos/publ/img/P_115.jpg' },
-      { url: 'http://cued.xunlei.com/demos/publ/img/P_116.jpg' },
-      { url: 'http://cued.xunlei.com/demos/publ/img/P_117.jpg' },
-      { url: 'http://cued.xunlei.com/demos/publ/img/P_118.jpg' },
-      { url: 'http://cued.xunlei.com/demos/publ/img/P_119.jpg' },
-      { url: 'http://cued.xunlei.com/demos/publ/img/P_121.jpg' },
-      { url: 'http://cued.xunlei.com/demos/publ/img/P_122.jpg' },
-      { url: 'http://cued.xunlei.com/demos/publ/img/P_123.jpg' },
-      { url: 'http://cued.xunlei.com/demos/publ/img/P_125.jpg' }
+      { url: 'https://p.upyun.com/demo/webp/webp/animated-gif-0.webp' },
+      { url: 'https://p.upyun.com/demo/webp/webp/gif-0.webp' },
+      { url: 'https://p.upyun.com/demo/webp/webp/png-0.webp' },
+      { url: 'https://p.upyun.com/demo/webp/webp/jpg-0.webp' },
+      { url: 'https://p.upyun.com/demo/webp/webp/gif-1.webp' },
+      { url: 'https://p.upyun.com/demo/webp/webp/jpg-1.webp' }
     ];
     waterfall(list, 'waterfall');
   },
   methods: {
-    change(e, editor) {
-      // console.log('Element clicked', e, editor);
+    handleChange(e, editor) {
+      console.log('editor focus:', e, this.$refs.editor.$refs.editor);
     },
+    handleBlur(e, editor) {},
     clear() {
       this.$refs.editor.clear();
     }
@@ -72,5 +59,9 @@ export default {
 * {
   margin: 0;
   padding: 0;
+}
+
+button {
+  cursor: pointer;
 }
 </style>
