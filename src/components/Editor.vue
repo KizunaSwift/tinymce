@@ -1,6 +1,6 @@
 <template>
   <div class="tinymce-editor">
-    <editor ref="editor" v-model="myValue" :init="init" :disabled="disabled" @onClick="change" @onBlur="blur"></editor>
+    <editor ref="editor" v-model="myValue" :init="init" :disabled="disabled" @onBlur="blur"></editor>
   </div>
 </template>
 <script>
@@ -30,7 +30,6 @@ export default {
     Editor
   },
   props: {
-    //传入一个value，使组件支持v-model绑定
     value: {
       type: String,
       default: ''
@@ -50,7 +49,6 @@ export default {
   },
   data() {
     return {
-      //初始化配置
       init: {
         language: 'zh_CN',
         language_url: 'tinymce/zh_CN.js',
@@ -98,14 +96,14 @@ export default {
     }
   },
   methods: {
-    change(e) {
-      this.$emit('change', e, tinymce);
-    },
-    blur(e) {
-      this.$emit('blur', e, tinymce);
+    blur() {
+      this.$emit('blur', this.$refs.editor.editor.getBody().innerText);
     },
     clear() {
       this.myValue = '';
+    },
+    getPlainText() {
+      return this.$refs.editor.editor.getBody().innerText;
     }
   },
   watch: {

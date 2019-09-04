@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div>
-      <p>{{ msg }}</p>
-      <tinymce-editor ref="editor" v-model="msg" :disabled="disabled" @change="handleChange" @blur="handleBlur"></tinymce-editor>
+      <p style="white-space: pre;">{{ msg }}</p>
+      <tinymce-editor ref="editor" v-model="msg" :disabled="disabled" @blur="handleBlur"></tinymce-editor>
       <button type="button" @click="clear" style="margin: 10px;">清空内容</button>
       <button type="button" @click="disabled=true">禁用</button>
     </div>
@@ -35,11 +35,19 @@ export default {
     ];
     waterfall(list, 'waterfall');
   },
+  mounted() {
+    window.onbeforeunload = (e) => {
+      e = e || window.event;
+      // 兼容IE8和Firefox 4之前的版本
+      if (e) e.returnValue = '确定要离开此页吗？';
+      // Chrome, Safari, Firefox 4+, Opera 12+ , IE 9+
+      return '确定要离开此页吗？';
+    }
+  },
   methods: {
-    handleChange(e, editor) {
-      console.log('editor focus:', e, this.$refs.editor.$refs.editor);
+    handleBlur(editor) {
+      if (confirm('是否保存？')) alert('保存成功');
     },
-    handleBlur(e, editor) {},
     clear() {
       this.$refs.editor.clear();
     }
@@ -49,8 +57,6 @@ export default {
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
