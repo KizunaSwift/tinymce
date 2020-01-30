@@ -10,7 +10,7 @@
   "dependencies": {
     "@tinymce/tinymce-vue": "^2.1.0",
     "js-responsive-waterfall": "^1.1.1",
-    "tinymce": "^5.0.15",
+    "tinymce": "^5.1.4",
     "vue": "^2.6.6"
   },
   "devDependencies": {
