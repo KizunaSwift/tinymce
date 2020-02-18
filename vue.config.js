@@ -9,14 +9,11 @@ module.exports = {
   outputDir: 'dist',
   configureWebpack: {
     resolve: {
-      extensions: ['.css'],
-      alias: {
-        'vue$': 'vue/dist/vue.esm.js',
-        '@': resolve('src')
-      }
+      extensions: ['.css']
     }
   },
   lintOnSave: false,
+  productionSourceMap: false,
   devServer: {
     host: 'localhost',
     port: '8080',
@@ -27,6 +24,9 @@ module.exports = {
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
+        },
+        onProxyReq(proxyReq) {
+          proxyReq.setHeader('Cookie', 'authId=sicvgghhh;token=dghhh;')
         }
       }
     }
